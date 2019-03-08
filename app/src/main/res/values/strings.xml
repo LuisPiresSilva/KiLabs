@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">KiLabs_Luis_Silva</string>
+    <string name="app_name">KiLabs</string>
+
+
+    <string name="main_fragment_category_view_kittens_title">Kittens</string>
+    <string name="main_fragment_category_view_dogs_title">Dogs</string>
+    <string name="main_fragment_category_view_public_feed_title">Public Feed</string>
+
+
+    <!--GENERIC-->
+    <string name="retry">Retry</string>
+    <string name="no_content">No content</string>
+    <string name="refresh">Refresh</string>
+    <string name="error_fetching">Error fetching data</string>
 </resources>
