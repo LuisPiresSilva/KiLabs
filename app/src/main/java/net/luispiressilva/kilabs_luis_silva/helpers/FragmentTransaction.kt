@@ -32,5 +32,5 @@ import androidx.fragment.app.FragmentTransaction
 inline fun FragmentManager.hpInTransaction(func: FragmentTransaction.() -> Unit) {
     val fragmentTransaction = beginTransaction()
     fragmentTransaction.func()
-    fragmentTransaction.commitNow()
+    fragmentTransaction.commit()
 }

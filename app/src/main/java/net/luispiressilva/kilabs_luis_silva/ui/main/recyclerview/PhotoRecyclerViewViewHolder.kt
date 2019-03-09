@@ -20,10 +20,11 @@ class PhotoRecyclerViewViewHolder(itemView: View) : RecyclerView.ViewHolder(item
         callback: MainFragmentRecyclerViewAdapter.AdapterCallBack
     ) {
 
-        Glide.with(view.context).load(photo.urlC)
+        val url = if(photo.urlC.isBlank()) photo.urlO else photo.urlC
+
+        Glide.with(view.context).load(url)
             .apply(
                 RequestOptions().error(R.drawable.ic_launcher_background)
-
             )
             .into(view.main_fragment_category_view_category_viewholder_image)
 

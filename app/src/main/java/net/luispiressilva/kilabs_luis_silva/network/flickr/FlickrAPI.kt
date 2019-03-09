@@ -3,6 +3,7 @@ package net.luispiressilva.kilabs_luis_silva.network.flickr
 import io.reactivex.Single
 import net.luispiressilva.kilabs_luis_silva.FLICKR_KEY
 import net.luispiressilva.kilabs_luis_silva.network.flickr.schema.ServerResponse
+import net.luispiressilva.kilabs_luis_silva.network.flickr.schema.metadata.PhotoResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -87,7 +88,7 @@ interface FlickrAPI {
 
 
 
-//    1: Photo not found
+//    1: PhotoResponse not found
 //    The photo id was either invalid or was for a photo not viewable by the calling user.
 //    2: Permission denied
 //    The owner of the photo does not want to share EXIF data.
@@ -110,5 +111,5 @@ interface FlickrAPI {
     @GET("rest/?method=flickr.photos.getExif&api_key=$FLICKR_KEY&$FORMAT&$NOJSONCALLBACK")
     fun getExif(
         @Query("photo_id") photo_id : String
-    ) : Single<Response<ServerResponse>>
+    ) : Single<Response<PhotoResponse>>
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="photo_detail_image_witdh">0dp</dimen>
+    <dimen name="photo_detail_image_height">@dimen/wrap_content</dimen>
+    <string name="photo_detail_image_dimenRatio">1:1</string>
+</resources>

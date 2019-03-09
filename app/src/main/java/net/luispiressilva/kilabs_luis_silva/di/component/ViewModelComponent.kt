@@ -9,6 +9,7 @@ import net.luispiressilva.kilabs_luis_silva.di.modules.network.OkHttpClientModul
 import net.luispiressilva.kilabs_luis_silva.di.modules.viewmodel.ViewModelModule
 import net.luispiressilva.kilabs_luis_silva.network.flickr.FlickrAPI
 import net.luispiressilva.kilabs_luis_silva.ui.main.MainFragment
+import net.luispiressilva.kilabs_luis_silva.ui.photo_detail.PhotoDetailFragment
 import javax.inject.Singleton
 
 /**
@@ -19,6 +20,7 @@ import javax.inject.Singleton
 interface ViewModelComponent {
 
     fun inject(frag: MainFragment)
+    fun inject(frag: PhotoDetailFragment)
 
     fun inject(): FlickrAPI
 

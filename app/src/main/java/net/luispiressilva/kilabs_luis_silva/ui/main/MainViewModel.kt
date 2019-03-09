@@ -4,8 +4,8 @@ import io.reactivex.disposables.CompositeDisposable
 import net.luispiressilva.kilabs_luis_silva.DOGS
 import net.luispiressilva.kilabs_luis_silva.KITTENS
 import net.luispiressilva.kilabs_luis_silva.PUBLIC_FEED
+import net.luispiressilva.kilabs_luis_silva.network.flickr.DataSourceContracts
 import net.luispiressilva.kilabs_luis_silva.network.flickr.FlickrRemoteDataSource
-import net.luispiressilva.kilabs_luis_silva.network.flickr.IFlickrDataSource
 import net.luispiressilva.kilabs_luis_silva.network.flickr.schema.ServerResponse
 import net.luispiressilva.kilabs_luis_silva.network.networkError
 import net.luispiressilva.kilabs_luis_silva.ui.BasePresenter
@@ -14,7 +14,7 @@ import javax.inject.Inject
 //'open' in order to be able to mock this class for instrumentation testing
 open class MainViewModel @Inject constructor(private val flickrRemoteDataSource: FlickrRemoteDataSource) :
     BasePresenter<Contracts.IFlickrPhotosView>(),
-    Contracts.IFlickrPhotosPresenter, IFlickrDataSource {
+    Contracts.IFlickrPhotosPresenter, DataSourceContracts.GetRecent {
 
 
     //any disposables we use here should be added here
@@ -32,7 +32,6 @@ open class MainViewModel @Inject constructor(private val flickrRemoteDataSource:
 
     private fun init(category: String) {
         categoryMap[category] = CategoryViewController()
-
 
     }
 
@@ -70,9 +69,9 @@ open class MainViewModel @Inject constructor(private val flickrRemoteDataSource:
                     //RXjava does not handle well the lateinit later in unit testing
                     CategoryViewController.UIState.LOADING -> if (categoryMap[category]?.fetcher == null || categoryMap[category]?.fetcher?.isDisposed == true) getCategoryPhotos(category)
                     CategoryViewController.UIState.CONTENT -> view()?.showPhotos(category, categoryMap[category]?.list!!)
-                    CategoryViewController.UIState.CONTENT_ERROR -> view()?.showContentError(category, "")
+                    CategoryViewController.UIState.CONTENT_ERROR -> view()?.showContentError(category, categoryMap[category]?.error?.message + "")
                     CategoryViewController.UIState.NOCONTENT -> view()?.showNoContent(category)
-                    CategoryViewController.UIState.NOCONTENT_ERROR -> view()?.showNoContentError(category, "")
+                    CategoryViewController.UIState.NOCONTENT_ERROR -> view()?.showNoContentError(category, categoryMap[category]?.error?.message + "")
 
                 }
             }

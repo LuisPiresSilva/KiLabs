@@ -2,6 +2,7 @@ package net.luispiressilva.kilabs_luis_silva.ui.main
 
 import io.reactivex.disposables.Disposable
 import net.luispiressilva.kilabs_luis_silva.model.PhotoFlickr
+import net.luispiressilva.kilabs_luis_silva.network.networkError
 
 /**
  * Created by Luis Silva on 07/03/2019.
@@ -9,7 +10,8 @@ import net.luispiressilva.kilabs_luis_silva.model.PhotoFlickr
 class CategoryViewController(
     var state : UIState = UIState.LOADING, //initial state
     val list : MutableList<PhotoFlickr> = ArrayList<PhotoFlickr>(),
-    var fetcher: Disposable? = null
+    var fetcher: Disposable? = null,
+    var error : networkError? = null
 ) {
 
 

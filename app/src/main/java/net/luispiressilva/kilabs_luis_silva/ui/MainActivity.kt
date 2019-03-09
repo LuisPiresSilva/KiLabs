@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import net.luispiressilva.kilabs_luis_silva.R
 import net.luispiressilva.kilabs_luis_silva.helpers.hpInTransaction
 import net.luispiressilva.kilabs_luis_silva.ui.main.MainFragment
+import timber.log.Timber
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,10 +16,21 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.hpInTransaction {
-                add(R.id.main_fragment_container, MainFragment.newInstance(), MainFragment.TAG)
+                replace(R.id.main_fragment_container, MainFragment.newInstance(), MainFragment.TAG)
             }
         }
     }
 
 
+    override fun onBackPressed() {
+        val count = supportFragmentManager.backStackEntryCount
+
+        if (count == 0) {
+            super.onBackPressed()
+
+        } else {
+            supportFragmentManager.popBackStack()
+        }
+
+    }
 }

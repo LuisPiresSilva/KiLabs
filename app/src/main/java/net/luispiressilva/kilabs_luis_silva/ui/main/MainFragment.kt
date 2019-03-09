@@ -9,16 +9,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment.view.*
 import kotlinx.android.synthetic.main.main_fragment_category_view.view.*
+import kotlinx.android.synthetic.main.main_fragment_category_view_photo_viewholder.view.*
 import net.luispiressilva.kilabs_luis_silva.*
+import net.luispiressilva.kilabs_luis_silva.R
 import net.luispiressilva.kilabs_luis_silva.components.viewmodel.ViewModelFactory
 import net.luispiressilva.kilabs_luis_silva.di.component.DaggerViewModelComponent
 import net.luispiressilva.kilabs_luis_silva.di.modules.network.NetworkModule
 import net.luispiressilva.kilabs_luis_silva.di.modules.network.OkHttpClientModule
+import net.luispiressilva.kilabs_luis_silva.helpers.hpInTransaction
 import net.luispiressilva.kilabs_luis_silva.model.PhotoFlickr
 import net.luispiressilva.kilabs_luis_silva.ui.main.recyclerview.MainFragmentRecyclerViewAdapter
+import net.luispiressilva.kilabs_luis_silva.ui.photo_detail.PhotoDetailFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -93,11 +99,13 @@ class MainFragment : Fragment(),
     }
 
 
+
     override fun photoClick(photo: PhotoFlickr, holder: RecyclerView.ViewHolder) {
-//        activity?.supportFragmentManager?.hpInTransaction {
-//            addSharedElement(holder.itemView.main_fragment_category_view_category_viewholder_image, "")
-//            add(R.id.container, PhotoDetail.newInstance(), PhotoDetail.TAG)
-//        }
+
+        activity?.supportFragmentManager?.hpInTransaction {
+            add(R.id.main_fragment_container, PhotoDetailFragment.newInstance(photo), PhotoDetailFragment.TAG).addToBackStack(PhotoDetailFragment.TAG)
+
+        }
     }
 
 

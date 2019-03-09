@@ -5,7 +5,9 @@ import io.reactivex.disposables.Disposable
 import net.luispiressilva.kilabs_luis_silva.components.AppSchedulers
 import net.luispiressilva.kilabs_luis_silva.network.ErrorType
 import net.luispiressilva.kilabs_luis_silva.network.flickr.schema.ServerResponse
+import net.luispiressilva.kilabs_luis_silva.network.flickr.schema.metadata.PhotoResponse
 import net.luispiressilva.kilabs_luis_silva.network.networkError
+import net.luispiressilva.kilabs_luis_silva.ui.photo_detail.Contracts
 import retrofit2.Response
 import timber.log.Timber
 import java.io.IOException
@@ -28,7 +30,7 @@ open class FlickrRemoteDataSource @Inject constructor(private val api: FlickrAPI
 
 
 
-    private fun apiGetPhotoMetaData(id : String): Single<Response<ServerResponse>> {
+    private fun apiGetPhotoMetaData(id : String): Single<Response<PhotoResponse>> {
         return api.getExif(id)
     }
 
@@ -36,7 +38,7 @@ open class FlickrRemoteDataSource @Inject constructor(private val api: FlickrAPI
 
 
 
-    fun getRecentPhotos(category: String, result: IFlickrDataSource): Disposable? {
+    fun getRecentPhotos(category: String, result: DataSourceContracts.GetRecent): Disposable? {
         return apiGetRecent("")
             .subscribeOn(sub.io)
             .observeOn(sub.android)
@@ -83,14 +85,14 @@ open class FlickrRemoteDataSource @Inject constructor(private val api: FlickrAPI
     }
 
 
-    fun getPhotoMetaData(category: String, result: IFlickrDataSource, id : String): Disposable? {
+    fun getPhotoMetaData(result: DataSourceContracts.Photo, id : String): Disposable? {
         return apiGetPhotoMetaData(id)
             .subscribeOn(sub.io)
             .observeOn(sub.android)
             .subscribe({
                 when {
                     it.isSuccessful ->
-                        result.flickrPhotosSuccess(category, it.body()!!)
+                        result.flickrPhotoSuccess(it.body()!!)
 
                     else -> {
 
@@ -101,12 +103,12 @@ open class FlickrRemoteDataSource @Inject constructor(private val api: FlickrAPI
 
                         }
 
-                        result.flickrPhotosError(category, networkError(it.code(), ErrorType.SERVER, "", null))
+                        result.flickrPhotoError(networkError(it.code(), ErrorType.SERVER, "", null))
                     }
                 }
 
             }, {
-                result.flickrPhotosError(category, handleThrowable(it))
+                result.flickrPhotoError(handleThrowable(it))
 
             })
     }
@@ -117,11 +119,11 @@ open class FlickrRemoteDataSource @Inject constructor(private val api: FlickrAPI
         System.out.println("Start Test: 3 - " + " - " + throwable.cause + " - " + throwable.message)
         when (throwable.cause) {
             is IOException -> {
-                return networkError(0, ErrorType.ERROR, throwable.message, throwable)
+                return networkError(0, ErrorType.ERROR, throwable.message + "", throwable)
             }
             is IllegalStateException -> {
                 //here maybe we should send a Non Fatal to somewhere (like crashlytics)
-                return networkError(0, ErrorType.ERROR, throwable.message, throwable)
+                return networkError(0, ErrorType.ERROR, throwable.message + "", throwable)
             }
             else -> {
                 //here maybe we should send a Non Fatal to somewhere (like crashlytics)

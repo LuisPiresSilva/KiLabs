@@ -6,6 +6,12 @@
     <string name="main_fragment_category_view_dogs_title">Dogs</string>
     <string name="main_fragment_category_view_public_feed_title">Public Feed</string>
 
+    <string name="photo_detail_button_go_text">GO</string>
+    <string name="photo_detail_button_show_metadata_text">METADATA</string>
+    <string name="photo_detail_button_show_image_text">IMAGE</string>
+    <string name="photo_detail_button_save_image_text">SAVE</string>
+
+
 
     <!--GENERIC-->
     <string name="retry">Retry</string>

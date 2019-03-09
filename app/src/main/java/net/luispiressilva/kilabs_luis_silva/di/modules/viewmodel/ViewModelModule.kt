@@ -8,6 +8,7 @@ import dagger.multibindings.IntoMap
 import net.luispiressilva.kilabs_luis_silva.components.viewmodel.ViewModelFactory
 import net.luispiressilva.kilabs_luis_silva.di.annotations.ViewModelKey
 import net.luispiressilva.kilabs_luis_silva.ui.main.MainViewModel
+import net.luispiressilva.kilabs_luis_silva.ui.photo_detail.PhotoDetailViewModel
 
 /**
  * Created by Luis Silva on 14/02/2019.
@@ -21,5 +22,10 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(MainViewModel::class)
-    internal abstract fun presenterViewModel(viewModel: MainViewModel): ViewModel
+    internal abstract fun mainViewModel(viewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PhotoDetailViewModel::class)
+    internal abstract fun photoDetailViewModel(viewModel: PhotoDetailViewModel): ViewModel
 }

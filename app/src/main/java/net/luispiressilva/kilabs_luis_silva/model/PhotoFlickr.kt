@@ -2,43 +2,45 @@ package net.luispiressilva.kilabs_luis_silva.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 
 /**
  * Created by Luis Silva on 06/03/2019.
  */
+@JsonClass(generateAdapter = true)
 data class PhotoFlickr
     (
-    @SerializedName("id")
+    @Json(name = "id")
     val id: String,
-    @SerializedName("owner")
+    @Json(name ="owner")
     var owner: String = "",
-    @SerializedName("secret")
+    @Json(name ="secret")
     var secret: String = "",
-    @SerializedName("server")
+    @Json(name ="server")
     var server: String = "",
-    @SerializedName("farm")
+    @Json(name ="farm")
     var farm: Int = 0,
-    @SerializedName("title")
+    @Json(name ="title")
     var title: String = "",
-    @SerializedName("ispublic")
+    @Json(name ="ispublic")
     var ispublic: Int = 0,
-    @SerializedName("isfriend")
+    @Json(name ="isfriend")
     var isfriend: Int = 0,
-    @SerializedName("isfamily")
+    @Json(name ="isfamily")
     var isfamily: Int = 0,
-    @SerializedName("url_c")
+    @Json(name ="url_c")
     var urlC: String = "",
-    @SerializedName("height_c")
+    @Json(name ="height_c")
     var heightC: String = "",
-    @SerializedName("width_c")
+    @Json(name ="width_c")
     var widthC: String = "",
-    @SerializedName("url_o")
+    @Json(name ="url_o")
     var urlO: String = "",
-    @SerializedName("height_o")
+    @Json(name ="height_o")
     var heightO: String = "",
-    @SerializedName("width_o")
+    @Json(name ="width_o")
     var widthO: String = ""
 ) : Parcelable {
 

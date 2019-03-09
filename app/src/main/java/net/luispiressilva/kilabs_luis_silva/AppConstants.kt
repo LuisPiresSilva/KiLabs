@@ -10,6 +10,8 @@ const val FLICKR_SECRET = "cd28d64afbf30b62"
 
 const val FLICKR_URL = "https://api.flickr.com/services/"
 
+const val CACHE_FOLDER = "kilabs_temporary_folder"
+
 
 
 //DEVELOPER_NOTE
