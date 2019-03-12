@@ -1,7 +1,7 @@
 Report
 
 
-###Architecture:
+### Architecture:
 
 project follows the model view presenter
  - presenters in this case are viewmodels (Android ViewModel component), so that the presenter is retained across 
@@ -12,14 +12,14 @@ project follows the model view presenter
  
  
 
-###Navigation:
+### Navigation:
  - for this case, i simply followed a fragment navigation approach (ie i did not create a detail activity and such)
  would need more specific details about requirements or future requirements to decide if i would do an
   activity base approach (for instance if detail would need to also open from outside the app and how and why)
 
 
 
-###Structure:
+### Structure:
 regarding project structure the following packages organise the project like so:
  - components -> i place generic components here
  - di -> overall generic dependency injection - it contains di of the common used components in this case it provides
@@ -46,7 +46,7 @@ regarding project structure the following packages organise the project like so:
  - inside test folder -> base contains setup and configuration classes to be used by Test classes to fast setup
 
 
-###TESTING:
+### TESTING:
  - i provide some basic Instrumentation test:
   - activity -> tests that ir reuses the same fragments
   - main fragment -> also does some tests but only on top of the kittens row the others should follow the same behaviour
@@ -63,12 +63,12 @@ regarding project structure the following packages organise the project like so:
 
 
 
-###DEVELOPER NOTES about exercise:
+### DEVELOPER NOTES about exercise:
 Given the exercise requirements and information many things were unclear therefore some decisions were made with that 
 in mind and here i explained those (i know this is an exercise and that's why i simply went for it but in a real
  environment i would try to not start development until i get the following issues clearer)
 
-####Critics/Opinions regarding exercise:
+#### Critics/Opinions regarding exercise:
  - the exercise is not clear about future developments which makes it hard to make decisions about core structure
  (example: deeplinks, instant app and similar)
  - very generic wireframes -> main screen wireframe shows how it should look the problem is that we do not know what is
@@ -78,7 +78,7 @@ in mind and here i explained those (i know this is an exercise and that's why i 
  - and obviously wireframe are usually much more complete (ratios, sizes, colors etc) but its an exercise
 
 
-####Specific Development Decisions/Approaches based on the latter critics/opinions:
+#### Specific Development Decisions/Approaches based on the latter critics/opinions:
  - given the doubts i added each list row dynamically (i called it categories, therefore it is category based):
   - kittens and dogs -> use a search flickr endpoint with those search terms
   - public feed -> uses getRecent flickr endpoint
@@ -94,16 +94,16 @@ in mind and here i explained those (i know this is an exercise and that's why i 
 
 
 
-###Requiremnts
+### Requiremnts
 
-####Mandatory Requirements
+#### Mandatory Requirements
  - Use the latest development tools for the platform you are working on -> check
  - You may use third party libraries -> check
  - Use a software version control system -> check
  - Fetch data from the web -> check
  - Metadata must be visible for each image -> check (there is a metadata button in the detail screen)
  
-####Optional Requirements
+#### Optional Requirements
  - Image Caching -> check (glide caches images, used the default strategy -> this can be tweeked)
  - Share image -> check
  - Open image in browser -> check (button GO)
@@ -113,7 +113,7 @@ in mind and here i explained those (i know this is an exercise and that's why i 
  
  
  
-###Current apps features and inner workings:
+### Current apps features and inner workings:
  - app survives rotation and keeps states (scroll position, data and others)
  - app has swipe to refresh (requests all categories again) -> everything starts over but list retains view states
   it only changes the views if new content is different (removes or updates old cards inserts new ones) therefore
@@ -132,7 +132,7 @@ in mind and here i explained those (i know this is an exercise and that's why i 
 
  
  
-###Features i did not implemented:
+### Features i did not implemented:
 
  - i did not implemented the load more for the lists (easy)
  - still did not implemented order image by date (also easy)
