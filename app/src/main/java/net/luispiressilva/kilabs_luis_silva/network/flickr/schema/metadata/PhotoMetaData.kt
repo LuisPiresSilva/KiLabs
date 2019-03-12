@@ -8,18 +8,18 @@ import com.squareup.moshi.JsonClass
  */
 
 @JsonClass(generateAdapter = true)
-class PhotoMetaData (
-    @Json(name ="id")
+class PhotoMetaData(
+    @Json(name = "id")
     val id: String,
-    @Json(name ="secret")
+    @Json(name = "secret")
     var secret: String = "",
-    @Json(name ="server")
+    @Json(name = "server")
     var server: String = "",
-    @Json(name ="farm")
+    @Json(name = "farm")
     var farm: Int = 0,
-    @Json(name ="camera")
+    @Json(name = "camera")
     var camera: String = "",
-    @Json(name ="exif")
+    @Json(name = "exif")
     var exif: List<PhotoExif>
 ) {
 }

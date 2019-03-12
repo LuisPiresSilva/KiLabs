@@ -23,16 +23,21 @@ import javax.inject.Singleton
 @Module
 class OkHttpClientModule {
 
-    class UseCache(val cached : Boolean = false)
+    class UseCache(val cached: Boolean = false)
 
 
     @Provides
     @Singleton
-    fun okHttpClient(useCache : UseCache, cache: Cache, httpLoggingInterceptor: HttpLoggingInterceptor, app: Context): OkHttpClient {
+    fun okHttpClient(
+        useCache: UseCache,
+        cache: Cache,
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        app: Context
+    ): OkHttpClient {
         return OkHttpClient
             .Builder()
             .also {
-                if(useCache.cached) {
+                if (useCache.cached) {
                     it.cache(cache).addInterceptor { chain -> chain.proceed(addCache(app, chain)) }
                 }
             }
@@ -91,7 +96,8 @@ class OkHttpClientModule {
     @Provides
     @Singleton
     fun httpLoggingInterceptor(): HttpLoggingInterceptor {
-        val httpLoggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Timber.d(message) })
+        val httpLoggingInterceptor =
+            HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Timber.d(message) })
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         return httpLoggingInterceptor
     }

@@ -13,7 +13,6 @@ const val FLICKR_URL = "https://api.flickr.com/services/"
 const val CACHE_FOLDER = "kilabs_temporary_folder"
 
 
-
 //DEVELOPER_NOTE
 //should not be like this, this wireframe does not make much sense (my opinion, or not seeing it)
 //if content varies based on server response then fine (reason i called all these categories), but not this use case

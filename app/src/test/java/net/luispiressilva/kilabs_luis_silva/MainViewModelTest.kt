@@ -88,7 +88,6 @@ class MainViewModelTest {
     }
 
 
-
     @Test
     fun whenSuccessShowPhotos() {
 
@@ -280,9 +279,6 @@ class MainViewModelTest {
         verify(view, Mockito.atLeastOnce()).showContentError(Mockito.anyString(), Mockito.anyString())
         assert(presenter.categoryMap[catTest]?.state == CategoryViewController.UIState.CONTENT_ERROR)
     }
-
-
-
 
 
     @Test

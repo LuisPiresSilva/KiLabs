@@ -21,7 +21,6 @@ class KiLabsApp : Application() {
         Utils(app)
 
 
-
     }
 
 

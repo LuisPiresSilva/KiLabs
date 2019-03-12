@@ -21,13 +21,13 @@ interface NetworkComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun applicationContext(applicationContext: Context) : Builder
+        fun applicationContext(applicationContext: Context): Builder
 
         @BindsInstance
-        fun useCache(useCache : OkHttpClientModule.UseCache) : Builder
+        fun useCache(useCache: OkHttpClientModule.UseCache): Builder
 
         @BindsInstance
-        fun host(host : NetworkModule.Host) : Builder
+        fun host(host: NetworkModule.Host): Builder
 
         fun build(): NetworkComponent
     }

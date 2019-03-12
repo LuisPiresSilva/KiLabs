@@ -30,14 +30,14 @@ abstract class BaseTest {
 
 
     @Before
-    open fun setUp(){
+    open fun setUp() {
         MockitoAnnotations.initMocks(this)
         this.configureMockServer()
         this.configureDi()
     }
 
     @After
-    open fun tearDown(){
+    open fun tearDown() {
         this.stopMockServer()
     }
 
@@ -45,7 +45,7 @@ abstract class BaseTest {
     //assembleAndroidTest or compileDebugSource might be needed to be run so that
     // Dagger generates the code and 'DaggerTestAppComponent' gets resolved
     // CONFIGURATION
-    open fun configureDi(){
+    open fun configureDi() {
         this.testAppComponent = DaggerTestAppComponent.builder()
             .applicationContext(context)
             .useCache(OkHttpClientModule.UseCache(false))
@@ -58,27 +58,29 @@ abstract class BaseTest {
     // MOCK SERVER
     abstract fun isMockServerEnabled(): Boolean // Because we don't want it always enabled on all tests
 
-    open fun configureMockServer(){
-        if (isMockServerEnabled()){
+    open fun configureMockServer() {
+        if (isMockServerEnabled()) {
             mockServer = MockWebServer()
             mockServer.start()
         }
     }
 
     open fun stopMockServer() {
-        if (isMockServerEnabled()){
+        if (isMockServerEnabled()) {
             mockServer.shutdown()
         }
     }
 
-    open fun mockHttpResponse(fileName: String, responseCode: Int) = mockServer.enqueue(MockResponse()
-        .setResponseCode(responseCode)
-        .setBody(getJson(fileName)))
+    open fun mockHttpResponse(fileName: String, responseCode: Int) = mockServer.enqueue(
+        MockResponse()
+            .setResponseCode(responseCode)
+            .setBody(getJson(fileName))
+    )
 
-    open fun mockHttpResponse(type : MockServer.Requests) = MockServer().simulate(type, mockServer)
+    open fun mockHttpResponse(type: MockServer.Requests) = MockServer().simulate(type, mockServer)
 
-    private fun getJson(path : String) : String {
-        val uri = javaClass.classLoader.getResource( "mocked_server_responses" + File.separatorChar + path)
+    private fun getJson(path: String): String {
+        val uri = javaClass.classLoader.getResource("mocked_server_responses" + File.separatorChar + path)
         val file = File(uri.path)
         return String(file.readBytes())
     }

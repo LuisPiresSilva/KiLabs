@@ -20,7 +20,7 @@ class PhotoRecyclerViewViewHolder(itemView: View) : RecyclerView.ViewHolder(item
         callback: MainFragmentRecyclerViewAdapter.AdapterCallBack
     ) {
 
-        val url = if(photo.urlC.isBlank()) photo.urlO else photo.urlC
+        val url = if (photo.urlC.isBlank()) photo.urlO else photo.urlC
 
         Glide.with(view.context).load(url)
             .apply(

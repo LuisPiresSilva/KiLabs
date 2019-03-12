@@ -9,13 +9,13 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 class PhotoResponse(
-    @Json(name ="stat")
+    @Json(name = "stat")
     val stat: String,
-    @Json(name ="code")
+    @Json(name = "code")
     var code: Int = 0,
-    @Json(name ="message")
+    @Json(name = "message")
     var message: String = "",
-    @Json(name ="photo")
+    @Json(name = "photo")
     val photo: PhotoMetaData
 ) {
 }

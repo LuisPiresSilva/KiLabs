@@ -14,33 +14,33 @@ data class PhotoFlickr
     (
     @Json(name = "id")
     val id: String,
-    @Json(name ="owner")
+    @Json(name = "owner")
     var owner: String = "",
-    @Json(name ="secret")
+    @Json(name = "secret")
     var secret: String = "",
-    @Json(name ="server")
+    @Json(name = "server")
     var server: String = "",
-    @Json(name ="farm")
+    @Json(name = "farm")
     var farm: Int = 0,
-    @Json(name ="title")
+    @Json(name = "title")
     var title: String = "",
-    @Json(name ="ispublic")
+    @Json(name = "ispublic")
     var ispublic: Int = 0,
-    @Json(name ="isfriend")
+    @Json(name = "isfriend")
     var isfriend: Int = 0,
-    @Json(name ="isfamily")
+    @Json(name = "isfamily")
     var isfamily: Int = 0,
-    @Json(name ="url_c")
+    @Json(name = "url_c")
     var urlC: String = "",
-    @Json(name ="height_c")
+    @Json(name = "height_c")
     var heightC: String = "",
-    @Json(name ="width_c")
+    @Json(name = "width_c")
     var widthC: String = "",
-    @Json(name ="url_o")
+    @Json(name = "url_o")
     var urlO: String = "",
-    @Json(name ="height_o")
+    @Json(name = "height_o")
     var heightO: String = "",
-    @Json(name ="width_o")
+    @Json(name = "width_o")
     var widthO: String = ""
 ) : Parcelable {
 

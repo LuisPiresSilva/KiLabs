@@ -30,7 +30,6 @@ class MainActivityTest {
     }
 
 
-
     @Test
     fun checkInitialState() {
 

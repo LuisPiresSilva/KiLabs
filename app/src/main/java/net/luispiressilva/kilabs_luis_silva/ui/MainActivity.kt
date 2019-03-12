@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     //no need to be preserved only needed when we do a fragment based navigation
     // to hide parent without its reference (fragment, ID, TAG, etc)
-    lateinit var lastFragment : Fragment
+    lateinit var lastFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.hpInTransaction {
                 val frag = MainFragment.newInstance()
                 replace(R.id.main_fragment_container, frag, MainFragment.TAG)
-                runOnCommit { lastFragment =  frag}
+                runOnCommit { lastFragment = frag }
             }
         }
     }

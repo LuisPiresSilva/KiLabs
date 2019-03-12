@@ -15,17 +15,20 @@ class MockServer {
         getRECENT_SUCESS
     }
 
-    private fun getJson(path : String) : String {
-        val uri = javaClass.classLoader.getResource( "mocked_server_responses" + File.separatorChar + path)
+    private fun getJson(path: String): String {
+        val uri = javaClass.classLoader.getResource("mocked_server_responses" + File.separatorChar + path)
         val file = File(uri.path)
         return String(file.readBytes())
     }
 
-    fun simulate(req : Requests, server : MockWebServer) {
+    fun simulate(req: Requests, server: MockWebServer) {
         when (req) {
-            Requests.getRECENT_SUCESS -> {server.enqueue(MockResponse()
-                .setResponseCode(HttpURLConnection.HTTP_OK)
-                .setBody(getJson("getRecent_Success_default.json")))
+            Requests.getRECENT_SUCESS -> {
+                server.enqueue(
+                    MockResponse()
+                        .setResponseCode(HttpURLConnection.HTTP_OK)
+                        .setBody(getJson("getRecent_Success_default.json"))
+                )
             }
         }
     }

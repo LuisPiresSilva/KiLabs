@@ -36,14 +36,11 @@ interface FlickrAPI {
 //    One or more arguments contained a URL that has been used for abuse on Flickr.
     @GET("rest/?method=flickr.photos.getRecent&api_key=$FLICKR_KEY&$FORMAT&$NOJSONCALLBACK")
     fun getRecent(
-        @Query("extras") extras : String
-    ) : Single<Response<ServerResponse>>
+        @Query("extras") extras: String
+    ): Single<Response<ServerResponse>>
 
 
-
-
-
-//    1: Too many tags in ALL query
+    //    1: Too many tags in ALL query
 //    When performing an 'all tags' search, you may not specify more than 20 tags to join together.
 //    2: Unknown user
 //    A user_id was passed which did not match a valid flickr user.
@@ -81,14 +78,12 @@ interface FlickrAPI {
 //    One or more arguments contained a URL that has been used for abuse on Flickr.
     @GET("rest/?method=flickr.photos.search&api_key=$FLICKR_KEY&$FORMAT&$NOJSONCALLBACK")
     fun getSearch(
-        @Query("extras") extras : String,
+        @Query("extras") extras: String,
         @Query("text") search: String
-    ) : Single<Response<ServerResponse>>
+    ): Single<Response<ServerResponse>>
 
 
-
-
-//    1: PhotoResponse not found
+    //    1: PhotoResponse not found
 //    The photo id was either invalid or was for a photo not viewable by the calling user.
 //    2: Permission denied
 //    The owner of the photo does not want to share EXIF data.
@@ -110,6 +105,6 @@ interface FlickrAPI {
 //    One or more arguments contained a URL that has been used for abuse on Flickr.
     @GET("rest/?method=flickr.photos.getExif&api_key=$FLICKR_KEY&$FORMAT&$NOJSONCALLBACK")
     fun getExif(
-        @Query("photo_id") photo_id : String
-    ) : Single<Response<PhotoResponse>>
+        @Query("photo_id") photo_id: String
+    ): Single<Response<PhotoResponse>>
 }

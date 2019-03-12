@@ -19,7 +19,7 @@ interface Contracts {
     interface IFlickrPhotosPresenter {
         fun start(category: String)
         fun reset(category: String)
-        fun getCategoryPhotos(category : String)
+        fun getCategoryPhotos(category: String)
     }
 
 

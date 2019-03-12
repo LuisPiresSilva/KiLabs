@@ -12,7 +12,7 @@ class ModelTest {
     fun equality_and_default_values_check() {
 
         val photo = PhotoFlickr("0")
-        val photo2 = PhotoFlickr("0","", "", "", 0, "", 0, 0, 0, "", "","")
+        val photo2 = PhotoFlickr("0", "", "", "", 0, "", 0, 0, 0, "", "", "")
 
         assert(photo == photo2)
         assert(photo.hashCode() == photo2.hashCode())

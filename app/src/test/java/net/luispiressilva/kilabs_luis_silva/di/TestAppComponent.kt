@@ -21,30 +21,30 @@ import javax.inject.Singleton
 interface TestAppComponent {
 
     @Named("TESTING")
-    fun injectFlickrRemoteDataSource() : FlickrRemoteDataSource
+    fun injectFlickrRemoteDataSource(): FlickrRemoteDataSource
 
 
-    fun injectFlickrAPI() : FlickrAPI
+    fun injectFlickrAPI(): FlickrAPI
 
-    fun inject() : ViewModelFactory
+    fun inject(): ViewModelFactory
 
 
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun applicationContext(applicationContext: Context) : Builder
+        fun applicationContext(applicationContext: Context): Builder
 
         @BindsInstance
-        fun useCache(useCache : OkHttpClientModule.UseCache) : Builder
+        fun useCache(useCache: OkHttpClientModule.UseCache): Builder
 
         @BindsInstance
-        fun host(host : NetworkModule.Host) : Builder
+        fun host(host: NetworkModule.Host): Builder
 
         @BindsInstance
-        fun networkModule(network : NetworkModule) : Builder
+        fun networkModule(network: NetworkModule): Builder
 
         @BindsInstance
-        fun dataSourceModule(host : DataSourceModule) : Builder
+        fun dataSourceModule(host: DataSourceModule): Builder
 
         fun build(): TestAppComponent
     }

@@ -19,7 +19,7 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun retrofit( okHttpClient: OkHttpClient): Retrofit.Builder {
+    fun retrofit(okHttpClient: OkHttpClient): Retrofit.Builder {
         return Retrofit.Builder().also { build(it, okHttpClient) }
     }
 

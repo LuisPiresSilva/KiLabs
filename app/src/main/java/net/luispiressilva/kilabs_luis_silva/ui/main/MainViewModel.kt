@@ -78,9 +78,15 @@ open class MainViewModel @Inject constructor(private val flickrRemoteDataSource:
                     }
                 }
                 CategoryViewController.UIState.CONTENT -> view()?.showPhotos(category, it.list)
-                CategoryViewController.UIState.CONTENT_ERROR -> view()?.showContentError(category, it.error?.message + "")
+                CategoryViewController.UIState.CONTENT_ERROR -> view()?.showContentError(
+                    category,
+                    it.error?.message + ""
+                )
                 CategoryViewController.UIState.NOCONTENT -> view()?.showNoContent(category)
-                CategoryViewController.UIState.NOCONTENT_ERROR -> view()?.showNoContentError(category, it.error?.message + "")
+                CategoryViewController.UIState.NOCONTENT_ERROR -> view()?.showNoContentError(
+                    category,
+                    it.error?.message + ""
+                )
 
             }
         }
@@ -100,7 +106,7 @@ open class MainViewModel @Inject constructor(private val flickrRemoteDataSource:
 
             it.list.addAll(response.photos.list)
 
-            if(it.list.isEmpty()){
+            if (it.list.isEmpty()) {
                 it.state = CategoryViewController.UIState.NOCONTENT
                 view()?.showNoContent(category)
             } else {
@@ -112,7 +118,7 @@ open class MainViewModel @Inject constructor(private val flickrRemoteDataSource:
 
 
     override fun flickrPhotosError(category: String, error: networkError) {
-        if(categoryMap[category]?.list?.isEmpty()!!){
+        if (categoryMap[category]?.list?.isEmpty()!!) {
             categoryMap[category]?.state = CategoryViewController.UIState.NOCONTENT_ERROR
             view()?.showNoContentError(category, error.message + "")
         } else {
@@ -121,7 +127,6 @@ open class MainViewModel @Inject constructor(private val flickrRemoteDataSource:
         }
 
     }
-
 
 
 }

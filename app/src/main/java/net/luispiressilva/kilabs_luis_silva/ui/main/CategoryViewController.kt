@@ -8,10 +8,10 @@ import net.luispiressilva.kilabs_luis_silva.network.networkError
  * Created by Luis Silva on 07/03/2019.
  */
 class CategoryViewController(
-    var state : UIState = UIState.LOADING, //initial state
-    val list : MutableList<PhotoFlickr> = ArrayList<PhotoFlickr>(),
+    var state: UIState = UIState.LOADING, //initial state
+    val list: MutableList<PhotoFlickr> = ArrayList<PhotoFlickr>(),
     var fetcher: Disposable? = null,
-    var error : networkError? = null
+    var error: networkError? = null
 ) {
 
 
@@ -26,13 +26,13 @@ class CategoryViewController(
     }
 
 
-
     enum class Order {
         ASCENDING,
         DESCENDING
     }
-    fun orderByDate(order : Order) : List<PhotoFlickr> {
-        when(order) {
+
+    fun orderByDate(order: Order): List<PhotoFlickr> {
+        when (order) {
             Order.ASCENDING -> return list.sortedBy { it.owner }
             Order.DESCENDING -> return list.sortedByDescending { it.owner }
         }

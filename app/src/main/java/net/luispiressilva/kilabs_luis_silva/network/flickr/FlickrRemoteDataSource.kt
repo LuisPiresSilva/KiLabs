@@ -25,24 +25,20 @@ open class FlickrRemoteDataSource @Inject constructor(private val api: FlickrAPI
     private val date_taken = "date_taken"
 
 
-
     //does not accept sorting
     private fun apiGetRecent(): Single<Response<ServerResponse>> {
         return api.getRecent(url_c + url_o + date_taken)
     }
 
     //accepts sorting
-    private fun apiGetSearch(search : String): Single<Response<ServerResponse>> {
+    private fun apiGetSearch(search: String): Single<Response<ServerResponse>> {
         return api.getSearch(url_c + url_o + date_taken, search)
     }
 
 
-    private fun apiGetPhotoMetaData(id : String): Single<Response<PhotoResponse>> {
+    private fun apiGetPhotoMetaData(id: String): Single<Response<PhotoResponse>> {
         return api.getExif(id)
     }
-
-
-
 
 
     fun getRecentPhotos(category: String, result: DataSourceContracts.GetRecent): Disposable? {
@@ -113,7 +109,7 @@ open class FlickrRemoteDataSource @Inject constructor(private val api: FlickrAPI
             })
     }
 
-    fun getPhotoMetaData(result: DataSourceContracts.Photo, id : String): Disposable? {
+    fun getPhotoMetaData(result: DataSourceContracts.Photo, id: String): Disposable? {
         return apiGetPhotoMetaData(id)
             .subscribeOn(sub.io)
             .observeOn(sub.android)
@@ -142,8 +138,7 @@ open class FlickrRemoteDataSource @Inject constructor(private val api: FlickrAPI
     }
 
 
-
-    private fun handleThrowable(throwable : Throwable) : networkError {
+    private fun handleThrowable(throwable: Throwable): networkError {
         when (throwable.cause) {
             is IOException -> {
                 //here maybe we should send a Non Fatal to somewhere (like crashlytics)

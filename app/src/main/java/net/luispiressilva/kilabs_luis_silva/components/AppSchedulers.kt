@@ -7,7 +7,8 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by Luis Silva on 06/03/2019.
  */
-class AppSchedulers (
+class AppSchedulers(
     val io: Scheduler = Schedulers.io(),
     val computation: Scheduler = Schedulers.computation(),
-    val android: Scheduler = AndroidSchedulers.mainThread())
+    val android: Scheduler = AndroidSchedulers.mainThread()
+)

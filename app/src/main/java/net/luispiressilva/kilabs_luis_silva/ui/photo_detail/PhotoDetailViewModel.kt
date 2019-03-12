@@ -30,7 +30,7 @@ class PhotoDetailViewModel @Inject constructor(private val flickrRemoteDataSourc
     private var metadataIsError = true
 
     override fun start(id: String) {
-        if(metadata.isBlank()){
+        if (metadata.isBlank()) {
             getPhotoMetaData(id)
         }
         view()?.setPhotoMetaData(metadata, metadataIsError)
@@ -42,7 +42,6 @@ class PhotoDetailViewModel @Inject constructor(private val flickrRemoteDataSourc
             disposables.add(fetcher!!)
         }
     }
-
 
 
     override fun flickrPhotoSuccess(response: PhotoResponse) {

@@ -5,42 +5,42 @@ import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment.DIRECTORY_PICTURES
+import android.os.Environment.getExternalStoragePublicDirectory
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.ShareCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.nabinbhandari.android.permissions.PermissionHandler
+import com.nabinbhandari.android.permissions.Permissions
+import io.reactivex.Single
 import kotlinx.android.synthetic.main.photo_detail_fragment.*
 import kotlinx.android.synthetic.main.photo_detail_fragment.view.*
+import net.luispiressilva.kilabs_luis_silva.*
+import net.luispiressilva.kilabs_luis_silva.components.AppSchedulers
 import net.luispiressilva.kilabs_luis_silva.components.viewmodel.ViewModelFactory
 import net.luispiressilva.kilabs_luis_silva.di.component.DaggerViewModelComponent
 import net.luispiressilva.kilabs_luis_silva.di.modules.network.NetworkModule
 import net.luispiressilva.kilabs_luis_silva.di.modules.network.OkHttpClientModule
 import net.luispiressilva.kilabs_luis_silva.model.PhotoFlickr
-import javax.inject.Inject
-import com.nabinbhandari.android.permissions.PermissionHandler
-import com.nabinbhandari.android.permissions.Permissions
-import android.graphics.Bitmap
-import android.os.Environment.DIRECTORY_PICTURES
-import android.os.Environment.getExternalStoragePublicDirectory
-import android.widget.Toast
-import androidx.core.app.ShareCompat
-import androidx.core.content.FileProvider
-import io.reactivex.Single
-import net.luispiressilva.kilabs_luis_silva.*
-import net.luispiressilva.kilabs_luis_silva.components.AppSchedulers
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import javax.inject.Inject
 
 
 class PhotoDetailFragment : Fragment(),
@@ -105,7 +105,8 @@ class PhotoDetailFragment : Fragment(),
         }
 
         photo_detail_fragment_toolbar_share.setOnClickListener {
-            Single.fromCallable { saveImageToCache(this@PhotoDetailFragment.context, photo)
+            Single.fromCallable {
+                saveImageToCache(this@PhotoDetailFragment.context, photo)
             }.subscribeOn(AppSchedulers().io).observeOn(AppSchedulers().android)
                 .subscribe { fileName ->
                     share(fileName)
@@ -126,17 +127,22 @@ class PhotoDetailFragment : Fragment(),
             openInBrowser(url)
         }
         photo_detail_button_save_image.setOnClickListener {
-            Permissions.check(this@PhotoDetailFragment.context, Manifest.permission.WRITE_EXTERNAL_STORAGE, null, object : PermissionHandler() {
-                //we do not dispose should complete by itself (we use application context to show result to user)
-                @SuppressLint("CheckResult")
-                override fun onGranted() {
-                    Single.fromCallable { saveImageToPublic(photo)
-                    }.subscribeOn(AppSchedulers().io).observeOn(AppSchedulers().android)
-                        .subscribe { fileName ->
-                            Toast.makeText(KiLabsApp.app, "$fileName saved", Toast.LENGTH_LONG).show()
-                        }
-                }
-            })
+            Permissions.check(
+                this@PhotoDetailFragment.context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                null,
+                object : PermissionHandler() {
+                    //we do not dispose should complete by itself (we use application context to show result to user)
+                    @SuppressLint("CheckResult")
+                    override fun onGranted() {
+                        Single.fromCallable {
+                            saveImageToPublic(photo)
+                        }.subscribeOn(AppSchedulers().io).observeOn(AppSchedulers().android)
+                            .subscribe { fileName ->
+                                Toast.makeText(KiLabsApp.app, "$fileName saved", Toast.LENGTH_LONG).show()
+                            }
+                    }
+                })
         }
         photo_detail_button_show_metadata_image.setOnClickListener {
             showHideMetadata()
@@ -152,7 +158,6 @@ class PhotoDetailFragment : Fragment(),
 
         presenter.start(photo.id)
     }
-
 
 
     private fun showHideMetadata() {
@@ -187,18 +192,15 @@ class PhotoDetailFragment : Fragment(),
     }
 
 
-
-
-
-
-
-
-
     //following functions need refractoring (be placed properly as utils and others helper functions)
 
-    private fun share(image : File?){
+    private fun share(image: File?) {
         if (image != null && activity?.applicationContext != null) {
-            val uri = FileProvider.getUriForFile(activity?.applicationContext!!, BuildConfig.APPLICATION_ID + ".fileProvider", image)
+            val uri = FileProvider.getUriForFile(
+                activity?.applicationContext!!,
+                BuildConfig.APPLICATION_ID + ".fileProvider",
+                image
+            )
 
             val sharingIntent = ShareCompat.IntentBuilder.from(activity)
                 .setType("image/jpg")
@@ -206,12 +208,12 @@ class PhotoDetailFragment : Fragment(),
                 .setStream(uri)
                 .createChooserIntent()
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                activity?.startActivity(sharingIntent)
+            activity?.startActivity(sharingIntent)
         }
     }
 
-    private fun saveImageToCache(ctx : Context?, photo : PhotoFlickr): File? {
-        if(ctx != null) {
+    private fun saveImageToCache(ctx: Context?, photo: PhotoFlickr): File? {
+        if (ctx != null) {
             val url = if (photo.urlC.isBlank()) photo.urlO else photo.urlC
 
             val imageBitmap = Glide.with(ctx).asBitmap().load(url).submit().get()
@@ -235,7 +237,7 @@ class PhotoDetailFragment : Fragment(),
     //we check if we already have the image in the cache folder
     //yes -> copy to public system images folder and broadcast
     //no -> download to system images and broadcast
-    private fun saveImageToPublic(photo : PhotoFlickr): String? {
+    private fun saveImageToPublic(photo: PhotoFlickr): String? {
         val url = if (photo.urlC.isBlank()) photo.urlO else photo.urlC
 
         val imageFileName = "JPEG_" + photo.title + ".jpg"
@@ -246,10 +248,10 @@ class PhotoDetailFragment : Fragment(),
         val storageDir = getExternalStoragePublicDirectory(DIRECTORY_PICTURES)
 
 
-        if(image.exists()){
+        if (image.exists()) {
             try {
                 copy(image, File(storageDir, imageFileName))
-            } catch (e : IOException){
+            } catch (e: IOException) {
                 return "error"
             }
             return imageFileName

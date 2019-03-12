@@ -22,15 +22,14 @@ class DataSourceModule {
     @Provides
     @Singleton
     @Named("TESTING")
-    fun provideAppsTestDataSource(api: FlickrAPI, sub : AppSchedulers) = FlickrRemoteDataSource(api, sub)
+    fun provideAppsTestDataSource(api: FlickrAPI, sub: AppSchedulers) = FlickrRemoteDataSource(api, sub)
 
 
     @Provides
     @Singleton
-    fun provideSchedulers() : AppSchedulers {
+    fun provideSchedulers(): AppSchedulers {
         return AppSchedulers(Schedulers.trampoline(), Schedulers.trampoline(), Schedulers.trampoline())
     }
-
 
 
 }

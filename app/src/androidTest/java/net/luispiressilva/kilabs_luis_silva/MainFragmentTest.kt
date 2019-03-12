@@ -137,7 +137,10 @@ class MainFragmentTest {
 
     private fun checkNoContentEmptyDataState() {
         onView(
-            getViewOfCategory(R.id.main_fragment_category_view_category_no_content_loading_progressBar, getContainerTAG(KITTENS))
+            getViewOfCategory(
+                R.id.main_fragment_category_view_category_no_content_loading_progressBar,
+                getContainerTAG(KITTENS)
+            )
         ).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
 
 
@@ -148,7 +151,10 @@ class MainFragmentTest {
             .check(matches(withText(mActivityTestRule.activity.resources.getString(R.string.no_content))))
 
         onView(
-            getViewOfCategory(R.id.main_fragment_category_view_category_no_content_action_button, getContainerTAG(KITTENS))
+            getViewOfCategory(
+                R.id.main_fragment_category_view_category_no_content_action_button,
+                getContainerTAG(KITTENS)
+            )
         )
             .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
             .check(matches(withText(mActivityTestRule.activity.resources.getString(R.string.refresh))))
@@ -157,12 +163,18 @@ class MainFragmentTest {
 
     private fun checkValidDataState() {
         onView(
-            getViewOfCategory(R.id.main_fragment_category_view_category_no_content_loading_progressBar, getContainerTAG(KITTENS))
+            getViewOfCategory(
+                R.id.main_fragment_category_view_category_no_content_loading_progressBar,
+                getContainerTAG(KITTENS)
+            )
         ).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
 
 
         onView(
-            getViewOfCategory(R.id.main_fragment_category_view_category_no_content_main_container, getContainerTAG(KITTENS))
+            getViewOfCategory(
+                R.id.main_fragment_category_view_category_no_content_main_container,
+                getContainerTAG(KITTENS)
+            )
         )
             .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
 

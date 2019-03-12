@@ -16,7 +16,7 @@ import org.junit.runners.JUnit4
  */
 
 @RunWith(JUnit4::class)
-class ModelNetworkSchemaTest : BaseTest(){
+class ModelNetworkSchemaTest : BaseTest() {
 
     override fun isMockServerEnabled(): Boolean = true
 
@@ -24,9 +24,9 @@ class ModelNetworkSchemaTest : BaseTest(){
 
 
     @Before
-    override fun setUp(){
+    override fun setUp() {
         super.setUp()
-        dataSource =  this.testAppComponent.injectFlickrAPI()
+        dataSource = this.testAppComponent.injectFlickrAPI()
     }
 
 
@@ -37,7 +37,7 @@ class ModelNetworkSchemaTest : BaseTest(){
         this.mockHttpResponse(MockServer.Requests.getRECENT_SUCESS)
 
         val response = dataSource.getRecent("")
-        var server : ServerResponse? = null
+        var server: ServerResponse? = null
         response.subscribe({
             server = it.body()
         }, {

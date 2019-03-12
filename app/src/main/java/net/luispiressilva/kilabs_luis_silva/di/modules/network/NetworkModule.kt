@@ -11,10 +11,10 @@ import retrofit2.Retrofit
 @Module(includes = [RetrofitModule::class])
 class NetworkModule {
 
-    class Host(val host : String)
+    class Host(val host: String)
 
     @Provides
-    fun provideRetrofitService(builder : Retrofit.Builder, baseUrl : Host) : FlickrAPI {
+    fun provideRetrofitService(builder: Retrofit.Builder, baseUrl: Host): FlickrAPI {
         return builder.baseUrl(baseUrl.host).build().create(FlickrAPI::class.java)
     }
 

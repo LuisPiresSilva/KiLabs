@@ -8,15 +8,15 @@ import com.squareup.moshi.JsonClass
  */
 
 @JsonClass(generateAdapter = true)
-data class PhotoExif (
-    @Json(name ="tagspace")
+data class PhotoExif(
+    @Json(name = "tagspace")
     val tagspace: String,
-    @Json(name ="tagspaceid")
+    @Json(name = "tagspaceid")
     var tagspaceid: Int = 0,
-    @Json(name ="tag")
+    @Json(name = "tag")
     var tag: String = "",
-    @Json(name ="label")
+    @Json(name = "label")
     var label: String = "",
-    @Json(name ="raw")
+    @Json(name = "raw")
     var raw: Raw? = null
 )
