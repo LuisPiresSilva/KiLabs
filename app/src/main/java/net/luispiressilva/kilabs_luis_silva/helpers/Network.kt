@@ -1,5 +1,6 @@
 package net.luispiressilva.kilabs_luis_silva.helpers
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
@@ -20,6 +21,7 @@ class NetworkUtils(internal val app: Application) {
 
 
 //normal error in order to use this we must add (android.permission.ACCESS_NETWORK_STATE) permission in the manifest
+@SuppressLint("MissingPermission")
 fun hpHasNetwork(context: Context): Boolean {
     val connMgr = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val networkInfo: NetworkInfo? = connMgr.activeNetworkInfo

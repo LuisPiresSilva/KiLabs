@@ -27,12 +27,12 @@ open class FlickrRemoteDataSource @Inject constructor(private val api: FlickrAPI
 
     //does not accept sorting
     private fun apiGetRecent(): Single<Response<ServerResponse>> {
-        return api.getRecent(url_c + url_o + date_taken)
+        return api.getRecent("$url_c,$url_o,$date_taken")
     }
 
     //accepts sorting
     private fun apiGetSearch(search: String): Single<Response<ServerResponse>> {
-        return api.getSearch(url_c + url_o + date_taken, search)
+        return api.getSearch("$url_c,$url_o,$date_taken", search)
     }
 
 

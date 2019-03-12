@@ -42,7 +42,7 @@ abstract class BaseTest {
     }
 
 
-    //assembleAndroidTest or compileDebugSource might be needed to be run so that
+    //compileDebugAndroidTestSources or compileDebugSource might be needed to be run so that
     // Dagger generates the code and 'DaggerTestAppComponent' gets resolved
     // CONFIGURATION
     open fun configureDi() {

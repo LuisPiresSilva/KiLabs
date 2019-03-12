@@ -121,8 +121,6 @@ class PhotoDetailFragment : Fragment(),
             .thumbnail(Glide.with(this).load(photo.urlC).apply(RequestOptions.fitCenterTransform()))
             .into(view.photo_detail_image)
 
-
-
         photo_detail_button_go.setOnClickListener {
             openInBrowser(url)
         }
@@ -190,6 +188,10 @@ class PhotoDetailFragment : Fragment(),
         }
         photo_detail_image_metadada.text = metadata
     }
+
+
+
+
 
 
     //following functions need refractoring (be placed properly as utils and others helper functions)
