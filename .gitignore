@@ -3,7 +3,6 @@
 app/build/
 
 # Built application files
-*.apk
 *.ap_
 *.aab
 

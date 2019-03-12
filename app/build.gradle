@@ -7,7 +7,16 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        kilabs {
+            keyAlias 'kilabs'
+            keyPassword 'kilabs'
+            storeFile file('/Users/luis/AndroidStudioProjects/KiLabs_Luis_Silva/keyStore/keystore')
+            storePassword 'kilabs'
+        }
+    }
     compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "net.luispiressilva.kilabs_luis_silva"
         minSdkVersion 16
@@ -20,10 +29,12 @@ android {
 
         vectorDrawables.useSupportLibrary = true
     }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.kilabs
         }
         debug {
             //creates a diff build for debug builds
@@ -31,30 +42,30 @@ android {
             minifyEnabled false
         }
     }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     //app would eventually grow
     implementation 'androidx.multidex:multidex:2.0.1'
-
     implementation 'androidx.appcompat:appcompat:1.0.2'
 
     //interesting but alpha
-//    implementation 'androidx.core:core-ktx:1.1.0-alpha04'
 
+    //    implementation 'androidx.core:core-ktx:1.1.0-alpha04'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-
-
     implementation 'com.google.android.material:material:1.0.0'
-
-
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
-
 
     //logging lib
     implementation 'com.jakewharton.timber:timber:4.7.1'
@@ -62,8 +73,8 @@ dependencies {
     //Dagger
     implementation 'com.google.dagger:dagger-android:2.15'
     implementation 'com.google.dagger:dagger-android-support:2.15'
-    // if you use the support libraries
 
+    // if you use the support libraries
     kapt 'com.google.dagger:dagger-android-processor:2.15'
     kapt 'com.google.dagger:dagger-compiler:2.15'
 
@@ -73,12 +84,11 @@ dependencies {
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+//    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
     //RXJava
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
-
     implementation 'com.jakewharton.rxbinding:rxbinding-kotlin:0.4.0'
 
     //Glide
@@ -86,26 +96,24 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
 
     //MOSHI
-    implementation "com.squareup.retrofit2:converter-moshi:2.5.0"
-    implementation "com.squareup.moshi:moshi:1.8.0"
-    implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
+    implementation 'com.squareup.retrofit2:converter-moshi:2.5.0'
+    implementation 'com.squareup.moshi:moshi:1.8.0'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.8.0"
 
     //PERMISSIONS handling
     implementation 'com.nabinbhandari.android:permissions:3.8'
 
-
     //TESTING
 
     //TESTING - UNIT
-
     testImplementation 'junit:junit:4.12'
     testImplementation 'com.google.dagger:dagger-android:2.15'
     testImplementation 'com.google.dagger:dagger-android-support:2.15'
+
     // if you use the support libraries
     kaptTest 'com.google.dagger:dagger-android-processor:2.15'
     kaptTest 'com.google.dagger:dagger-compiler:2.15'
-
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
     testImplementation 'org.mockito:mockito-core:2.24.0'
     testImplementation 'androidx.test:runner:1.1.1'
@@ -115,10 +123,7 @@ dependencies {
     // MOCK WEB SERVER
     testImplementation 'com.squareup.okhttp:mockwebserver:2.7.5'
 
-
-
     // TESTING - ANDROID
-
     androidTestImplementation 'org.mockito:mockito-android:2.24.0'
     androidTestImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
 

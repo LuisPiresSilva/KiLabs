@@ -27,7 +27,7 @@ import org.mockito.Mockito
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class AppsFragmentTest {
+class MainFragmentTest {
 
     @Rule
     @JvmField

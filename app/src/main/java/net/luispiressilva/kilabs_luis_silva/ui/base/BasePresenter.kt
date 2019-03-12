@@ -1,4 +1,4 @@
-package net.luispiressilva.kilabs_luis_silva.ui
+package net.luispiressilva.kilabs_luis_silva.ui.base
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver

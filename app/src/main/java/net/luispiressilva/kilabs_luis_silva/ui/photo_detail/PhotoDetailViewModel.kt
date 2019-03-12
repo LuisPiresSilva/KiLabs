@@ -6,8 +6,7 @@ import net.luispiressilva.kilabs_luis_silva.network.flickr.DataSourceContracts
 import net.luispiressilva.kilabs_luis_silva.network.flickr.FlickrRemoteDataSource
 import net.luispiressilva.kilabs_luis_silva.network.flickr.schema.metadata.PhotoResponse
 import net.luispiressilva.kilabs_luis_silva.network.networkError
-import net.luispiressilva.kilabs_luis_silva.ui.BasePresenter
-import java.net.URI
+import net.luispiressilva.kilabs_luis_silva.ui.base.BasePresenter
 import javax.inject.Inject
 
 class PhotoDetailViewModel @Inject constructor(private val flickrRemoteDataSource: FlickrRemoteDataSource) :
@@ -26,14 +25,15 @@ class PhotoDetailViewModel @Inject constructor(private val flickrRemoteDataSourc
     }
 
 
-    var fetcher: Disposable? = null
-    var metadata = ""
+    private var fetcher: Disposable? = null
+    private var metadata = ""
+    private var metadataIsError = true
 
     override fun start(id: String) {
         if(metadata.isBlank()){
             getPhotoMetaData(id)
         }
-        view()?.setPhotoMetaData(metadata)
+        view()?.setPhotoMetaData(metadata, metadataIsError)
     }
 
     override fun getPhotoMetaData(id: String) {
@@ -47,14 +47,14 @@ class PhotoDetailViewModel @Inject constructor(private val flickrRemoteDataSourc
 
     override fun flickrPhotoSuccess(response: PhotoResponse) {
         metadata = response.photo.exif.toString()
-
-        view()?.setPhotoMetaData(metadata)
+        metadataIsError = false
+        view()?.setPhotoMetaData(metadata, metadataIsError)
     }
 
     override fun flickrPhotoError(error: networkError) {
         metadata = "error"
-
-        view()?.setPhotoMetaData(metadata)
+        metadataIsError = true
+        view()?.setPhotoMetaData(metadata, metadataIsError)
     }
 
 }

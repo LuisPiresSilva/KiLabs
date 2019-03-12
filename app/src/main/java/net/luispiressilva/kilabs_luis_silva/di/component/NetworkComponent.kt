@@ -16,8 +16,6 @@ import javax.inject.Singleton
 @Component(modules = [NetworkModule::class])
 interface NetworkComponent {
 
-//    fun prepareRetrofitNonCaching(): NetworkWrapper
-
     fun inject(): FlickrAPI
 
     @Component.Builder

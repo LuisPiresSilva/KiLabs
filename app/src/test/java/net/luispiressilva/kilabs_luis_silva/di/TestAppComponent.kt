@@ -14,7 +14,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 /**
- * Created by Luis Silva on 14/02/2019.
+ * Created by Luis Silva on 08/03/2019.
  */
 @Singleton
 @Component(modules = [NetworkModule::class, DataSourceModule::class, ViewModelModule::class])

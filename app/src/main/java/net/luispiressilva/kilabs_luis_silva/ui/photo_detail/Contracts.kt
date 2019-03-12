@@ -8,8 +8,7 @@ import net.luispiressilva.kilabs_luis_silva.model.PhotoFlickr
 interface Contracts {
 
     interface IFlickrPhotoDetailView {
-        fun setPhotoMetaData(metadata : String)
-        fun showNoContentError(error: String)
+        fun setPhotoMetaData(metadata : String, error : Boolean)
     }
 
     interface IFlickrPhotoDetailPresenter {

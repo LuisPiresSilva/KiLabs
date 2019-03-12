@@ -6,7 +6,7 @@ import java.io.File
 import java.net.HttpURLConnection
 
 /**
- * Created by Luis Silva on 20/02/2019.
+ * Created by Luis Silva on 08/03/2019.
  */
 class MockServer {
 
@@ -25,7 +25,7 @@ class MockServer {
         when (req) {
             Requests.getRECENT_SUCESS -> {server.enqueue(MockResponse()
                 .setResponseCode(HttpURLConnection.HTTP_OK)
-                .setBody(getJson("getRecent_Success.json")))
+                .setBody(getJson("getRecent_Success_default.json")))
             }
         }
     }

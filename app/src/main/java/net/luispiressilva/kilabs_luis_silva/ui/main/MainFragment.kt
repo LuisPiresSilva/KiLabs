@@ -22,6 +22,7 @@ import net.luispiressilva.kilabs_luis_silva.di.modules.network.NetworkModule
 import net.luispiressilva.kilabs_luis_silva.di.modules.network.OkHttpClientModule
 import net.luispiressilva.kilabs_luis_silva.helpers.hpInTransaction
 import net.luispiressilva.kilabs_luis_silva.model.PhotoFlickr
+import net.luispiressilva.kilabs_luis_silva.ui.MainActivity
 import net.luispiressilva.kilabs_luis_silva.ui.main.recyclerview.MainFragmentRecyclerViewAdapter
 import net.luispiressilva.kilabs_luis_silva.ui.photo_detail.PhotoDetailFragment
 import timber.log.Timber
@@ -101,10 +102,11 @@ class MainFragment : Fragment(),
 
 
     override fun photoClick(photo: PhotoFlickr, holder: RecyclerView.ViewHolder) {
-
         activity?.supportFragmentManager?.hpInTransaction {
-            add(R.id.main_fragment_container, PhotoDetailFragment.newInstance(photo), PhotoDetailFragment.TAG).addToBackStack(PhotoDetailFragment.TAG)
+            add(R.id.main_fragment_container, PhotoDetailFragment.newInstance(photo), PhotoDetailFragment.TAG)
+                .addToBackStack(PhotoDetailFragment.TAG)
 
+            hide((activity as MainActivity).lastFragment)
         }
     }
 

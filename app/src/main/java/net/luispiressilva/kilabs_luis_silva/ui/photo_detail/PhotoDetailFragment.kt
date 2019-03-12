@@ -31,15 +31,12 @@ import com.nabinbhandari.android.permissions.Permissions
 import android.graphics.Bitmap
 import android.os.Environment.DIRECTORY_PICTURES
 import android.os.Environment.getExternalStoragePublicDirectory
-import android.os.Handler
-import android.os.Looper
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import io.reactivex.Single
 import net.luispiressilva.kilabs_luis_silva.*
 import net.luispiressilva.kilabs_luis_silva.components.AppSchedulers
-import timber.log.Timber
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -92,8 +89,8 @@ class PhotoDetailFragment : Fragment(),
         presenter = ViewModelProviders.of(this, viewModelFactory).get(PhotoDetailViewModel::class.java)
         presenter.attachView(this, lifecycle)
 
-
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.photo_detail_fragment, container, false)
@@ -120,7 +117,7 @@ class PhotoDetailFragment : Fragment(),
         //we load medium size (fast) then when original is ready we show it with a fading effect
         Glide.with(view.context).load(photo.urlO)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .thumbnail(Glide.with(this).load(photo.urlC).apply(RequestOptions.centerCropTransform()))
+            .thumbnail(Glide.with(this).load(photo.urlC).apply(RequestOptions.fitCenterTransform()))
             .into(view.photo_detail_image)
 
 
@@ -145,6 +142,10 @@ class PhotoDetailFragment : Fragment(),
             showHideMetadata()
         }
 
+        photo_detail_image_metadada_retry.setOnClickListener {
+            presenter.getPhotoMetaData(photo.id)
+        }
+
 
         //allows textview to scroll the content
         photo_detail_image_metadada.movementMethod = ScrollingMovementMethod()
@@ -153,14 +154,8 @@ class PhotoDetailFragment : Fragment(),
     }
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
-
-    }
-
-
-    fun showHideMetadata() {
+    private fun showHideMetadata() {
         if (photo_detail_image_metadada_container.visibility == GONE) {
             photo_detail_button_show_metadata_image.text = getString(R.string.photo_detail_button_show_image_text)
             photo_detail_image.visibility = GONE
@@ -173,7 +168,7 @@ class PhotoDetailFragment : Fragment(),
     }
 
 
-    fun openInBrowser(url: String) {
+    private fun openInBrowser(url: String) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         try {
             activity?.startActivity(browserIntent)
@@ -182,8 +177,8 @@ class PhotoDetailFragment : Fragment(),
         }
     }
 
-    override fun setPhotoMetaData(metadata: String) {
-        if (metadata.isBlank()) {
+    override fun setPhotoMetaData(metadata: String, error: Boolean) {
+        if (error) {
             photo_detail_image_metadada_retry.visibility = VISIBLE
         } else {
             photo_detail_image_metadada_retry.visibility = GONE
@@ -191,9 +186,8 @@ class PhotoDetailFragment : Fragment(),
         photo_detail_image_metadada.text = metadata
     }
 
-    override fun showNoContentError(error: String) {
 
-    }
+
 
 
 
@@ -209,7 +203,6 @@ class PhotoDetailFragment : Fragment(),
             val sharingIntent = ShareCompat.IntentBuilder.from(activity)
                 .setType("image/jpg")
                 .setChooserTitle("KI Labs sharing")
-                .setText("shared Flickr photo")
                 .setStream(uri)
                 .createChooserIntent()
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -249,7 +242,7 @@ class PhotoDetailFragment : Fragment(),
         val image = File(cacheDir(), imageFileName)
 
 
-        var savedImagePath: String? = null
+        val savedImagePath: String?
         val storageDir = getExternalStoragePublicDirectory(DIRECTORY_PICTURES)
 
 
@@ -279,15 +272,15 @@ class PhotoDetailFragment : Fragment(),
                 }
 
                 // Add the image to the system gallery
-                galleryAddPic(savedImagePath)
+                systemNotifyFileAdded(context!!, savedImagePath)
 
                 return imageFileName
             }
         }
 
         return "error"
-
     }
+
 
     private fun cacheDir(): File {
         val cacheDir = File(KiLabsApp.app.cacheDir.path + File.separator + CACHE_FOLDER)
@@ -298,32 +291,31 @@ class PhotoDetailFragment : Fragment(),
     }
 
     //allows other apps to know a new image was added
-    private fun galleryAddPic(imagePath: String) {
-        val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        val f = File(imagePath);
-        val contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        context?.sendBroadcast(mediaScanIntent);
+    private fun systemNotifyFileAdded(ctx: Context, path: String) {
+        val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+        val f = File(path)
+        val contentUri = Uri.fromFile(f)
+        mediaScanIntent.data = contentUri
+        ctx.sendBroadcast(mediaScanIntent)
     }
 
-    @Throws(IOException::class)
-    fun copy(src: File, dst: File) {
-        val `in` = FileInputStream(src)
-        try {
-            val out = FileOutputStream(dst)
-            try {
+    /**
+     * copies source file to destination file
+     * @exception IOException caller should catch this
+     */
+    private fun copy(src: File, dst: File) {
+        val input = FileInputStream(src)
+        input.use {
+            val output = FileOutputStream(dst)
+            output.use { out ->
                 // Transfer bytes from in to out
                 val buf = ByteArray(1024)
                 var len: Int
                 do {
-                    len = `in`.read(buf)
+                    len = it.read(buf)
                     out.write(buf, 0, len)
                 } while (len > 0)
-            } finally {
-                out.close()
             }
-        } finally {
-            `in`.close()
         }
     }
 }

@@ -79,7 +79,7 @@ interface FlickrAPI {
 //    The XML-RPC request document could not be parsed.
 //    116: Bad URL found
 //    One or more arguments contained a URL that has been used for abuse on Flickr.
-    @GET("rest/?method=flickr.photos.getSearchf&api_key=$FLICKR_KEY&$FORMAT&$NOJSONCALLBACK")
+    @GET("rest/?method=flickr.photos.search&api_key=$FLICKR_KEY&$FORMAT&$NOJSONCALLBACK")
     fun getSearch(
         @Query("extras") extras : String,
         @Query("text") search: String
