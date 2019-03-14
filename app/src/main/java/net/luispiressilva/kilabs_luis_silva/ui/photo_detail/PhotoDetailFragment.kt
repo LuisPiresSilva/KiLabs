@@ -194,6 +194,7 @@ class PhotoDetailFragment : Fragment(),
 
 
 
+
     //following functions need refractoring (be placed properly as utils and others helper functions)
 
     private fun share(image: File?) {

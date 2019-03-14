@@ -171,6 +171,11 @@ class MainFragment : Fragment(),
         //change recycler footer from progress to retry
     }
 
+
+    override fun isSortByDate(category: String) : Boolean {
+        return viewMap[category]?.main_fragment_category_view_category_sort?.isChecked!!
+    }
+
     //we add each category row dinamicaly
     //each row has a title, more, RecyclerView and no content dedicated layout
     override fun addCategory(category: String) {
@@ -192,6 +197,10 @@ class MainFragment : Fragment(),
             //both no content error or no content request refresh buttons (same button)
             view.main_fragment_category_view_category_no_content_action_button.setOnClickListener {
                 presenter.getCategoryPhotos(category)
+            }
+
+            view.main_fragment_category_view_category_sort.setOnCheckedChangeListener { buttonView, isChecked ->
+               presenter.orderByDate(category, isChecked)
             }
 
 //            //problem lies now here, we could not use local localization unless we have fixed categories from server
