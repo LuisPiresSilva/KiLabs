@@ -94,7 +94,7 @@ open class MainViewModel @Inject constructor(private val flickrRemoteDataSource:
 
 
     override fun reset(category: String) {
-        disposables.clear()
+        disposables.remove(categoryMap[category]?.fetcher!!)
         init(category)
         start(category)
     }
