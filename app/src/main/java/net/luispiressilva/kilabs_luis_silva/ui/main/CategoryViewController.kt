@@ -11,7 +11,9 @@ class CategoryViewController(
     var state: UIState = UIState.LOADING, //initial state
     val list: MutableList<PhotoFlickr> = ArrayList<PhotoFlickr>(),
     var fetcher: Disposable? = null,
-    var error: networkError? = null
+    var error: networkError? = null,
+
+    var orderedList: List<PhotoFlickr> = ArrayList<PhotoFlickr>() //we keep both states, list because we do not fetch this specific list
 ) {
 
 
@@ -31,10 +33,11 @@ class CategoryViewController(
         DESCENDING
     }
 
+
     fun orderByDate(order: Order): List<PhotoFlickr> {
-        when (order) {
-            Order.ASCENDING -> return list.sortedBy { it.owner }
-            Order.DESCENDING -> return list.sortedByDescending { it.owner }
+        return when (order) {
+            Order.ASCENDING -> list.sortedBy { it.owner }
+            Order.DESCENDING -> list.sortedByDescending { it.owner }
         }
     }
 

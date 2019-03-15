@@ -14,12 +14,14 @@ interface Contracts {
         fun showNoContentError(category: String, error: String)
         fun showContentError(category: String, error: String)
         fun addCategory(category: String)
+        fun isSortByDate(category: String) : Boolean
     }
 
     interface IFlickrPhotosPresenter {
         fun start(category: String)
         fun reset(category: String)
         fun getCategoryPhotos(category: String)
+        fun orderByDate(category: String, isOrder : Boolean)
     }
 
 
