@@ -90,7 +90,9 @@ in mind and here i explained those (i know this is an exercise and that's why i 
  again wirdeframe does not have into consideration any scaling problems and any rotation behaviour or layouts for
  landscape
 
-
+#### General Developer Notes
+ - the toolbar/actionBar is very basic and does not follow default Android patterns (was simply to speed up)
+ - regarding navigation, as said before is simple a fragment based but mostly to speed up things
 
 
 
@@ -108,7 +110,7 @@ in mind and here i explained those (i know this is an exercise and that's why i 
  - Share image -> check
  - Open image in browser -> check (button GO)
  - Save Image -> check
- - Order image by date -> missing (easy to add later)
+ - Order image by date -> check
  - Unit Tests -> check (some unit testing is done not 100% coverage (focused mainly in main fragment did not test photoDetail))
  
  
@@ -135,7 +137,6 @@ in mind and here i explained those (i know this is an exercise and that's why i 
 ### Features i did not implemented:
 
  - i did not implemented the load more for the lists (easy)
- - still did not implemented order image by date (also easy)
  - did not handle error codes (left it clear where it should be placed in the 'FlickrRemoteDataSource' class and 
  the specific to Flickr error codes and details are commented in the FlickrAPI interface
     
